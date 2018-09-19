@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style> * {
+        margin: 0;
+        padding: 0;
+    }
+        #move {
+            position: absolute;
+            width: 500px;
+            height: 200px;
+            left: 200px;
+            top: 300px;
+            border-radius: 10px;
+            border: solid 1px grey;
+            cursor: move;
+            user-select: none;
+        }
+        .move-header{
+            border-bottom: solid 1px #999999;
+            padding: 5px 10px;
+        }
+        .move-content{
+            padding: 20px 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="move">
+        <div class="move-header">
+            哈哈哈
+        </div>
+        <div class="move-content">
+            快来拖我吧
+        </div>
+    </div>
+</div>
+
+<script>
+    var moveItem = document.getElementById("move")
+    var distanceX;
+    var distanceY;
+    var flag;
+    moveItem.addEventListener("mousedown", downHandler)
+    moveItem.addEventListener("mouseup", upHandler)
+    function downHandler(e){
+        distanceX = e.clientX - moveItem.offsetLeft;
+        distanceY = e.clientY - moveItem.offsetTop;
+        flag = true
+        document.addEventListener("mousemove", moveHandler)
+    }
+    function moveHandler(e){
+        if(flag){
+            moveItem.style.left = e.clientX - distanceX + 'px';
+            moveItem.style.top = e.clientY - distanceY + 'px';
+        }
+    };
+    function upHandler(){
+        flag = false
+        document.removeEventListener("mousemove", moveHandler)
+    }
+</script>
+</body>
+</html>
